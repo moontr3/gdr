@@ -20,6 +20,10 @@ A program for playing background music of your choice offline on your PC.<br>
 
 ### Running
 
+Download the [latest release](https://github.com/moontr3/gdr/releases/latest) and follow the instructions there
+
+_or_
+
 Download the project and run the `main.pyw` file
 ```bash
 git clone https://github.com/moontr3/gdr.git
@@ -27,7 +31,7 @@ cd gdr
 python3 main.pyw
 ```
 
-Note that the program won't run if there is no songs in your folder or the folder is missing.
+> Note that the program won't run if there is no songs in your folder or the folder is missing.
 
 
 ### Configuring
