@@ -1,0 +1,10 @@
+# songs
+songs/subtitles/*.json
+songs/*.mp3
+
+# system data
+desktop.ini
+__pycache__
+
+# save file
+data.json
