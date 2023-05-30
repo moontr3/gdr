@@ -335,7 +335,6 @@ while running:
     focused = pg.key.get_focused()
     lmb_up = False
     lmb_down = False
-    rmb_down = False 
     mouse_wheel = 0
 
     subtitle_shift = 0
@@ -352,13 +351,11 @@ while running:
         if event.type == pg.MOUSEWHEEL:
             mouse_wheel = event.y
 
-        if event.type == pg.MOUSEBUTTONUP:
-            if event.button == 1:
-                lmb_up = True
+        if event.type == pg.MOUSEBUTTONUP and event.button == 1:
+            lmb_up = True
 
-        if event.type == pg.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                lmb_down = True
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+            lmb_down = True
 
 
 
