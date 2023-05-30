@@ -81,6 +81,9 @@ Press `Alt+F4` while focused or the fifth button from the left (cross) to close 
 #### Rewinding
 Move your mouse to the bottom of the bar and click to rewind the song.
 
+#### Changing volume
+Hover over the bar and spin your mouse wheel to change volume.
+
 
 ## Subtitles
 
