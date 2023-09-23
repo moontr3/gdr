@@ -7,6 +7,9 @@ A program for playing background music of your choice offline on your PC.<br>
 ## Quick Start
 
 ### Requirements
+On Windows, you can run `install-dependencies.bat` and follow the installer instructions
+
+_or_
 
 - [Pygame](https://pygame.org/) (`pip3 install pygame --pre`)
 > --pre is recommended for installing a newer version of SDL to fix the broken rewinding of some .mp3 files.
