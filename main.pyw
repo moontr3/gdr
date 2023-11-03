@@ -92,8 +92,6 @@ def load(filename='data.json'):
 # loading save data
 save_data = load()
 volume = save_data['volume']
-print(save_data)
-print(volume)
 pg.mixer.music.set_volume(volume/100)
 
 # save data (just an easier way of dump(save_data))
@@ -250,7 +248,6 @@ def play_song(path=None):
 # update volume
 def update_vol(y):
     global volume, volume_timer
-    print(volume)
 
     # changing volume
     volume -= -y*2
