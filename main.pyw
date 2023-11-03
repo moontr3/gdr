@@ -31,6 +31,7 @@ import draw
 from pypresence import Presence
 import subtitle
 import numpy as np
+import os
 
 pg.mixer.init()
 pg.init()
@@ -81,15 +82,20 @@ def load(filename='data.json'):
             "presence_description": "",
             "fav_boost": 1,
             "remember_last_song": True,
-            "song": "",
-            "next_song": "",
-            "boosted": []
+            "song": 'No song',
+            "next_song": 'No song',
+            "boosted": [],
+            "volume": 100
         })
         return load()
     
 # loading save data
 save_data = load()
-    
+volume = save_data['volume']
+print(save_data)
+print(volume)
+pg.mixer.music.set_volume(volume/100)
+
 # save data (just an easier way of dump(save_data))
 def save():
     dump(save_data)
@@ -143,7 +149,7 @@ def reload_songs():
     songs = glob.glob(f"{folder_path}*.mp3")
     subtitles = glob.glob(f"{folder_path}subtitles\\*.json")
     subtitles = [to_subtitle_name(i) for i in subtitles]
-
+    
     # converting songs to only names
     for i in range(len(songs)):
         songs[i] = to_name(songs[i])
@@ -161,7 +167,11 @@ def generate_random_song():
         return random.choice(songs)
     except:
         reload_songs()
-        return random.choice(songs)
+        try:
+            return random.choice(songs)
+        except:
+            if not os.path.isdir('songs'): os.mkdir('songs')
+            return 'We\'ve created a songs folder for you. Please put all your songs in there.'
 
 # rewind
 def rewind(timestamp):
@@ -202,7 +212,10 @@ def play_song(path=None):
 
     next = pre_next
     song_num += 1
-    length = MP3(to_path(playing)).info.length
+    try:
+        length = MP3(to_path(playing)).info.length
+    except:
+        length = 260
 
     # changing info
     pg.display.set_caption(f'#{song_num}: {playing}')
@@ -224,14 +237,20 @@ def play_song(path=None):
 
     # playing song
     pg.mixer.music.stop()
-    pg.mixer.music.load(to_path(playing))
-    pg.mixer.music.play()
 
+    try:
+        pg.mixer.music.load(to_path(playing))
+        pg.mixer.music.play()
+    except:
+        # smash or
+        pass
+    
     time_started = time.time()
 
 # update volume
 def update_vol(y):
     global volume, volume_timer
+    print(volume)
 
     # changing volume
     volume -= -y*2
@@ -242,6 +261,20 @@ def update_vol(y):
     # updating volume
     pg.mixer.music.set_volume(volume/100)
     popup('Volume:', f'{volume}%', 60)
+
+    dump({
+        "folder": "songs\\",
+        "client_id": "",
+        "discord_presence": False,
+        "presence_image": "",
+        "presence_description": "",
+        "fav_boost": 1,
+        "remember_last_song": True,
+        "song": 'No song',
+        "next_song": 'No song',
+        "boosted": [],
+        "volume": volume
+    })
 
 # display popup
 def popup(text, val, time=500):
@@ -269,7 +302,7 @@ class QAButton:
 # app variables
 
 folder_path = save_data['folder'].replace('/','\\')
-volume = 100
+volume = save_data['volume']
 playing = None
 next = generate_random_song()
 song_num = 0
